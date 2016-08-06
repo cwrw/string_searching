@@ -1,21 +1,33 @@
 module StringSearching
   class BoyerMooreSearch
-    attr_reader :text, :pattern, :occurrences
+    attr_reader :text, :pattern, :occurrences, :bad_character_table
+
     def initialize(pattern, text)
       @text = text
       @pattern = pattern
       @occurrences = []
+      @bad_character_table = BadCharacterTable.generate(pattern)
+      #@good_suffix_table = GoodSuffixTable.generate(pattern)
     end
 
     def search
       position = 0
       while position < (text.length - pattern.length + 1)
         shift = 1
-        if pattern_match?(pattern, position)
-          shift = pattern.length + 1
+        mismatch = false
+
+        for index in (pattern.length - 1).downto(0) do
+          character = text[position + index]
+          unless pattern[index] == character
+            mismatch = true
+            shift = [bad_character_lookup(character)].max
+            break
+          end
+        end
+
+        unless mismatch
+          shift = pattern.length
           occurrences << position
-        else
-          shift = 1
         end
 
         position += shift
@@ -24,12 +36,8 @@ module StringSearching
       occurrences
     end
 
-    private
-
-    def pattern_match?(pattern, position)
-      for index in (pattern.length - 1).downto(0) do
-        return false unless pattern[index] == text[position + index]
-      end
+    def bad_character_lookup(character)
+      bad_character_table[character] || pattern.length
     end
   end
 end

@@ -15,3 +15,4 @@ RSpec.describe StringSearching::BoyerMooreSearch do
     expect(subject.search).to eq([0, 13, 22])
   end
 end
+
