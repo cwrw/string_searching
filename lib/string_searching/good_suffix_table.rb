@@ -22,30 +22,30 @@ module StringSearching
 
     def generate_table_one
       index = length
-      border_occurence = length + 1
-      border[index] = border_occurence
+      border_occurrence = length + 1
+      border[index] = border_occurrence
       while index > 0
-        border_occurence = reset_border_if_mismatch!(border_occurence, index)
+        border_occurrence = reset_border_if_mismatch!(border_occurrence, index)
         index -= 1
         shift[index] = 0
-        border[index] = border_occurence
+        border[index] = border_occurrence
       end
     end
 
-    def reset_border_if_mismatch!(border_occurence, index)
-      while border_occurence <= length && pattern[index - 1] != pattern[border_occurence - 1]
-        shift[border_occurence] = border_occurence - index if shift[border_occurence].zero?
-        border_occurence = border[border_occurence]
+    def reset_border_if_mismatch!(border_occurrence, index)
+      while border_occurrence <= length && pattern[index - 1] != pattern[border_occurrence - 1]
+        shift[border_occurrence] = border_occurrence - index if shift[border_occurrence].zero?
+        border_occurrence = border[border_occurrence]
       end
 
-      border_occurence - 1
+      border_occurrence - 1
     end
 
     def generate_table_two
-      border_occurence = border[0]
+      border_occurrence = border[0]
       (0..length).each do |index|
-        shift[index] = border_occurence if shift[index].zero?
-        border_occurence = border[border_occurence] if border_occurence == index
+        shift[index] = border_occurrence if shift[index].zero?
+        border_occurrence = border[border_occurrence] if border_occurrence == index
       end
     end
   end
