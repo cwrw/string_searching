@@ -8,11 +8,24 @@ RSpec.describe StringSearching::BoyerMooreSearch do
     expect(subject.search).to eq([])
   end
 
-  it "returns multiple indices of pattern if pattern is found in text" do
+  it "returns multiple indices of pattern PICNIC in text" do
     pattern = "PICNIC"
-    text = "PICNIC PIPER PICNIC A PICNIC"
+    text = "PICNIC PIPER PICNIC A PICNICICPICNITPICNIC"
     subject = described_class.new(pattern, text)
-    expect(subject.search).to eq([0, 13, 22])
+    expect(subject.search).to eq([0, 13, 22, 36])
+  end
+
+  it "returns multiple indices of pattern ABBABAB in text" do
+    pattern = "ABBABAB"
+    text = "ABCAABBABABBABACBAABBABAB"
+    subject = described_class.new(pattern, text)
+    expect(subject.search).to eq([4, 18])
+  end
+
+  it "returns multiple indices of pattern GCAGAGAG in text" do
+    pattern = "GCAGAGAG"
+    text = "GCATCGCAGAGAGTATACAGTACG"
+    subject = described_class.new(pattern, text)
+    expect(subject.search).to eq([5])
   end
 end
-
