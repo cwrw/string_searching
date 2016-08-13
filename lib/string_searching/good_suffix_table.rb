@@ -25,7 +25,7 @@ module StringSearching
       border_occurence = length + 1
       border[index] = border_occurence
       while index > 0
-        border_occurence = reset_border_if_mismatch!(border_occurence, index) - 1
+        border_occurence = reset_border_if_mismatch!(border_occurence, index)
         index -= 1
         shift[index] = 0
         border[index] = border_occurence
@@ -38,7 +38,7 @@ module StringSearching
         border_occurence = border[border_occurence]
       end
 
-      border_occurence
+      border_occurence - 1
     end
 
     def generate_table_two
