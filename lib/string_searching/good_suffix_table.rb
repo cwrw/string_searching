@@ -32,7 +32,7 @@ module StringSearching
       end
     end
 
-    def reset_border_if_mismatch!(border_occurence, index) # rubocop:disable Metrics/AbcSize
+    def reset_border_if_mismatch!(border_occurence, index)
       while border_occurence <= length && pattern[index - 1] != pattern[border_occurence - 1]
         shift[border_occurence] = border_occurence - index if shift[border_occurence].zero?
         border_occurence = border[border_occurence]

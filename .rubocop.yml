@@ -15,6 +15,9 @@ StringLiterals:
 Metrics/LineLength:
   Max: 140
 
+Metrics/AbcSize:
+  Max: 21
+
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
